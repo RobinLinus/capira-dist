@@ -1,6 +1,6 @@
 'use strict';
 module.exports = {
-    mongoDB:'mongodb://127.0.0.1:27017/capira',
+    mongoDB: process.env.mongodb || 'mongodb://127.0.0.1:27017/capira',
     cookieSecret: 'cookieSecret',
     lti: {
         consumerKey: 'test',
