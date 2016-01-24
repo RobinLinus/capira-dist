@@ -4,7 +4,7 @@ var app = require('./app-auth');
 var config = require('./config');
 
 app.get('/', function(req, res, next) {
-    console.log(req);
+    console.log(req.headers, 'encrypted:',req.connection.encrypted);
     
     if (!req.user) {
         return res.send('<h3>Capira Server</h3>Use this as the launch url to integrate Capira in your Learning Management System via LTI');
