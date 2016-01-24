@@ -1,5 +1,6 @@
 'use strict';
 module.exports = {
+    mongoDB:'mongodb://localhost:27017/capira',
     cookieSecret: 'cookieSecret',
     lti: {
         consumerKey: 'test',
@@ -18,11 +19,11 @@ module.exports = {
     // }
 };
 
-if (process.argv[1]) {
-    console.log(process.argv[1]);
-    var config2 = require(process.argv[1]);
-    module.exports.lti.consumerKey = config2.lti.consumerKey;
-    module.exports.lti.consumerSecret = config2.lti.consumerSecret;
-    module.exports.port = config2.port;
-    module.exports.database = config2.database;
-}
+// if (process.argv[1]) {
+//     console.log(process.argv[1]);
+//     var config2 = require(process.argv[1]);
+//     module.exports.lti.consumerKey = config2.lti.consumerKey;
+//     module.exports.lti.consumerSecret = config2.lti.consumerSecret;
+//     module.exports.port = config2.port;
+//     module.exports.database = config2.database;
+// }
