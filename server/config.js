@@ -19,13 +19,13 @@ module.exports = {
     // }
 };
 
-console.log(module.exports.mongoDB);
 
-// if (process.argv[1]) {
-//     console.log(process.argv[1]);
-//     var config2 = require(process.argv[1]);
+// var configPath = process.argv[2];
+// if (configPath) {
+//     console.log('config', configPath);
+//     var config2 = require(configPath);
 //     module.exports.lti.consumerKey = config2.lti.consumerKey;
 //     module.exports.lti.consumerSecret = config2.lti.consumerSecret;
 //     module.exports.port = config2.port;
-//     module.exports.database = config2.database;
+//     module.exports.mongoDB += '_'+config2.database;
 // }
