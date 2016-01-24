@@ -5,6 +5,7 @@ var config = require('./config');
 
 app.get('/', function(req, res, next) {
     if (!req.user) {
+        return res.send(JSON.stringify(req));
         return res.send('<h3>Capira Server</h3>Use this as the launch url to integrate Capira in your Learning Management System via LTI');
     }
     res.send('You are logged in. Admin Permissions:' + req.user.isAdmin);
