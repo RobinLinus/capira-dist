@@ -6,7 +6,7 @@ module.exports = {
         consumerKey: 'test',
         consumerSecret: 'test',
     },
-    port: process.env.PORT || 9898,
+    port: process.env.PORT ||process.env.app_port || 9898,
     webRoot: 'client',
     playerEndpoint: '/player/#/',
     editorEndpoint: '/editor/#/',
@@ -18,6 +18,8 @@ module.exports = {
     //     cert: ''
     // }
 };
+
+console.log(module.exports.mongoDB);
 
 // if (process.argv[1]) {
 //     console.log(process.argv[1]);
