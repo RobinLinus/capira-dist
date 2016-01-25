@@ -7,7 +7,7 @@ module.exports = {
         consumerSecret: 'test',
     },
     port: process.env.PORT ||process.env.app_port || 9898,
-    webRoot: './client',
+    webRoot: '.dist/client',
     playerEndpoint: '/player/#/',
     editorEndpoint: '/editor/#/',
     createEndpoint: '/create/#' + '/editor/#/',
