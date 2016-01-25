@@ -50,7 +50,7 @@ module.exports = function(router) {
                 //TODO: Remove this in deployment to prevent information disclosure
                 return res.json({
                     error: 302,
-                    message: err
+                    message: 'This lesson doesn\'t exist.'
                 });
             }
             res.json({
@@ -66,7 +66,7 @@ module.exports = function(router) {
         // Use the Lesson model to find a specific Lesson
         Lesson.findById(req.params.lessonId, function(err, lesson) {
             if (err) {
-                res.send(err);
+                res.send('Not found!');
             }
             lesson.isAdmin = req.user.isAuthorized(lesson);
             res.json(lesson);

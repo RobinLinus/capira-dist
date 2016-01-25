@@ -22,7 +22,6 @@ if (config.ssl) {
     var server = https.createServer(options, app);
 } else {
     var server = http.createServer(app);
-
 }
 
 server.listen(config.port);
