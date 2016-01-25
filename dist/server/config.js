@@ -3,8 +3,8 @@ module.exports = {
     mongoDB: process.env.mongodb || 'mongodb://127.0.0.1:27017/capira',
     cookieSecret: process.env.cookieSecret || 'cookieSecret',
     lti: {
-        consumerKey: 'test',
-        consumerSecret: 'test',
+        consumerKey: process.env.lti_key || 'test',
+        consumerSecret: process.env.lti_secret || 'test',
     },
     port: process.env.PORT || process.env.app_port || 9898,
     webRoot: './dist/client',
@@ -18,7 +18,6 @@ module.exports = {
     //     cert: ''
     // }
 };
-
 
 // var configPath = process.argv[2];
 // if (configPath) {
