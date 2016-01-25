@@ -18,7 +18,9 @@ module.exports = {
     //     cert: ''
     // }
 };
-
+if(!process.env.lti_secret){
+    console.warn('No LTI Secret is set!');
+}
 // var configPath = process.argv[2];
 // if (configPath) {
 //     console.log('config', configPath);
