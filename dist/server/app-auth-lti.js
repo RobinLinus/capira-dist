@@ -19,8 +19,16 @@ module.exports = function(passport) {
         };
         done(null, user);
     });
-    return new LTIStrategy(config, function(lti, done) {
+    var strategy = new LTIStrategy(config, function(lti, done) {
         //console.log(lti);
+
+        //rough dummy implementation
+        this._createProvider(null, function(a, provider) {
+            //console.log('provider:', provider);
+            provider.outcome_service.send_replace_result(0.48, function(err, result) {
+               // console.log(err,result); 
+            });
+        });
 
         var resource = {
             resourceId: lti.resource_link_id,
@@ -28,6 +36,7 @@ module.exports = function(passport) {
             instanceId: lti.tool_consumer_instance_guid,
             title: lti.resource_link_title,
         };
+
         var user = {
             id: lti.user_id,
             contextId: lti.context_id,
@@ -36,4 +45,5 @@ module.exports = function(passport) {
         };
         return done(null, user, resource);
     });
+    return strategy;
 };

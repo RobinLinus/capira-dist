@@ -5,7 +5,12 @@
 - If you want to use SSL, add the path to your public key and certificate to `server/config.js`
 - Run `npm start` from the root directory to install the dependencies and start the Capira Server
 
-# Integration
+# Integrate Capira into your Learning Management System
+Capira uses the [LTI Standard](https://www.imsglobal.org/activity/learning-tools-interoperability) to connect with your LMS.
+
+- Your Launch-URL is the root URL of your Capira Server (i.e. https://my-capira-server.com/)
+- LTI uses a Key and Secret for authentication of your LMS.
+
+### Moodle
 - [Moodle 3.0](https://docs.moodle.org/30/en/External_tool_settings)
 - [Moodle 2.2](https://docs.moodle.org/22/en/External_tool_settings)
-- Your Launch-URL is the root URL of your Capira Server (i.e. https://my-capira-server.com/)
