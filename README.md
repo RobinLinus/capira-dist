@@ -9,7 +9,7 @@
 Capira uses the [LTI Standard](https://www.imsglobal.org/activity/learning-tools-interoperability) to connect with your LMS.
 
 - Your Launch-URL is the root URL of your Capira Server (i.e. https://my-capira-server.com/)
-- LTI uses a Key and Secret for authentication of your LMS.
+- LTI uses a Key and Secret for authentication of your LMS. You can configure them in your `config.js`
 
 ### Moodle
 - [Moodle 3.0](https://docs.moodle.org/30/en/External_tool_settings)

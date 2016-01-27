@@ -19,31 +19,24 @@ module.exports = function(passport) {
         };
         done(null, user);
     });
-    var strategy = new LTIStrategy(config, function(lti, done) {
-        //console.log(lti);
 
-        //rough dummy implementation
+    return new LTIStrategy(config, function(lti, done) {
         this._createProvider(null, function(a, provider) {
-            //console.log('provider:', provider);
-            provider.outcome_service.send_replace_result(0.48, function(err, result) {
-               // console.log(err,result); 
-            });
+            var resource = {
+                resourceId: lti.resource_link_id,
+                contextId: lti.context_id,
+                instanceId: lti.tool_consumer_instance_guid,
+                title: lti.resource_link_title,
+            };
+
+            var user = {
+                id: lti.user_id,
+                contextId: lti.context_id,
+                instanceId: lti.tool_consumer_instance_guid,
+                isAdmin: (lti.roles.indexOf('Instructor') > -1),
+            };
+            //console.log(provider)
+            return done(null, user, resource, provider);
         });
-
-        var resource = {
-            resourceId: lti.resource_link_id,
-            contextId: lti.context_id,
-            instanceId: lti.tool_consumer_instance_guid,
-            title: lti.resource_link_title,
-        };
-
-        var user = {
-            id: lti.user_id,
-            contextId: lti.context_id,
-            instanceId: lti.tool_consumer_instance_guid,
-            isAdmin: (lti.roles.indexOf('Instructor') > -1)
-        };
-        return done(null, user, resource);
-    });
-    return strategy;
+    });;
 };

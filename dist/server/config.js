@@ -1,5 +1,11 @@
 'use strict';
-module.exports = {
+
+var endpoints = '';
+if (!process.env.dev) {
+    endpoints = '/components/endpoints'
+}
+
+var config = {
     mongoDB: process.env.mongodb || 'mongodb://127.0.0.1:27017/capira',
     cookieSecret: process.env.cookieSecret || 'cookieSecret',
     lti: {
@@ -8,25 +14,21 @@ module.exports = {
     },
     port: process.env.PORT || process.env.app_port || 9898,
     webRoot: './dist/client',
-    playerEndpoint: '/player/#/',
-    editorEndpoint: '/editor/#/',
-    createEndpoint: '/create/#' + '/editor/#/',
+    playerEndpoint: endpoints + '/player/#/',
+    editorEndpoint: endpoints + '/editor/#/',
+    createEndpoint: endpoints + '/create/#' + endpoints + '/editor/#/',
     debug: true,
     // Path to your public SSL key and certificate (if you want to use the Capira Server without a reverse proxy like nginx)
     // ssl: {
     //     key: '',
     //     cert: ''
     // }
-};
-if(!process.env.lti_secret){
+}
+
+
+
+if (!process.env.lti_secret) {
     console.warn('No LTI Secret is set!');
 }
-// var configPath = process.argv[2];
-// if (configPath) {
-//     console.log('config', configPath);
-//     var config2 = require(configPath);
-//     module.exports.lti.consumerKey = config2.lti.consumerKey;
-//     module.exports.lti.consumerSecret = config2.lti.consumerSecret;
-//     module.exports.port = config2.port;
-//     module.exports.mongoDB += '_'+config2.database;
-// }
+
+module.exports = config;

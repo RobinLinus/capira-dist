@@ -55,7 +55,8 @@ app.post('/', function(req, res, next) {
                 'resource.resourceId': requestedResource.resourceId,
                 'resource.instanceId': requestedResource.instanceId
             }, {
-                _id: 1
+                _id: 1,
+                notInitialized: 1
             }, function(err, results) {
                 //if lesson not exists yet
                 if (results.length === 0) {
@@ -74,7 +75,6 @@ app.post('/', function(req, res, next) {
                     });
                 } else {
                     var lesson = results[0];
-                    console.log(lesson);
                     if (lesson.notInitialized) {
                         if (!user.isAdmin) {
                             return res.send('unauthorized request');
@@ -89,6 +89,35 @@ app.post('/', function(req, res, next) {
         });
     })(req, res, next);
 });
+
+
+
+
+
+
+app.get('/pustekuc', function(req, res, next) {
+    passport.authenticate('lti', function(err, user, requestedResource, provider) {
+        if (err) {
+            return next(err);
+        }
+
+
+        req.logIn(req.user, function(err) {
+            if (err) {
+                return next(err);
+            }
+            console.log('user', user);
+            console.log('requestedResource', requestedResource);
+
+            user.provider.outcome_service.send_replace_result(0.48, function(err, result) {
+                console.log('grade', result)
+            });
+
+        });
+    })(req, res, next);
+});
+
+
 
 app.use('/api', router);
 module.exports = app;

@@ -14,7 +14,8 @@ var LessonSchema = new mongoose.Schema({
     video: {
         type: Object
     },
-    notInitialized: Boolean
+    notInitialized: Boolean,
+    isAdmin: Boolean
 });
 var Lesson = mongoose.model('Lesson', LessonSchema);
 
@@ -47,7 +48,6 @@ module.exports = function(router) {
             $set: lesson
         }, function(err, lesson) {
             if (err) {
-                //TODO: Remove this in deployment to prevent information disclosure
                 return res.json({
                     error: 302,
                     message: 'This lesson doesn\'t exist.'
@@ -63,12 +63,18 @@ module.exports = function(router) {
     // Create a new route with the prefix /lessons/:lessonId
     var lessonRoute = router.route('/lesson/:lessonId');
     lessonRoute.get(function(req, res) {
+        var user = req.user;
+
         // Use the Lesson model to find a specific Lesson
+        // TODO : reduce projection to minimum
         Lesson.findById(req.params.lessonId, function(err, lesson) {
             if (err) {
                 res.send('Not found!');
             }
-            lesson.isAdmin = req.user.isAuthorized(lesson);
+            if (user) {
+                console.log('fetch lesson. user',user);
+                lesson.isAdmin = req.user.isAuthorized(lesson.resource);
+            }
             res.json(lesson);
         });
     });
