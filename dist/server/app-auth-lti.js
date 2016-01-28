@@ -12,9 +12,9 @@ module.exports = function(passport) {
             if (this.instanceId !== resource.instanceId) {
                 return false;
             }
-            if (this.contextId !== resource.contextId) {
-                return false;
-            }
+            // if (this.contextId !== resource.contextId) {
+            //     return false;
+            // }
             return this.isAdmin;
         };
         done(null, user);

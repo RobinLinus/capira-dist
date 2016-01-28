@@ -2,13 +2,13 @@
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var lti = require('./app-auth-lti');
 var config = require('./config');
 var Lesson = require('./models/lesson');
 
 /* passport lti */
 var passport = require('passport');
-passport.use(lti(passport));
+var lti = require('./app-auth-lti')(passport);
+passport.use(lti);
 
 var mongoose = require('mongoose');
 mongoose.connect(config.mongoDB);
@@ -95,28 +95,8 @@ app.post('/', function(req, res, next) {
 
 
 
-app.get('/pustekuc', function(req, res, next) {
-    passport.authenticate('lti', function(err, user, requestedResource, provider) {
-        if (err) {
-            return next(err);
-        }
 
-
-        req.logIn(req.user, function(err) {
-            if (err) {
-                return next(err);
-            }
-            console.log('user', user);
-            console.log('requestedResource', requestedResource);
-
-            user.provider.outcome_service.send_replace_result(0.48, function(err, result) {
-                console.log('grade', result)
-            });
-
-        });
-    })(req, res, next);
-});
-
+app.lti = lti;
 
 
 app.use('/api', router);

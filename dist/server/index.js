@@ -2,6 +2,7 @@
 var http = require('http');
 var app = require('./app-auth');
 var config = require('./config');
+var progress = require('./models/progress')(app);
 
 app.get('/', function(req, res, next) {
     if (!req.user) {
