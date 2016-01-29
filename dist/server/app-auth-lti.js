@@ -1,6 +1,7 @@
 'use strict';
 var LTIStrategy = require('passport-lti');
 var config = require('./config').lti;
+var btoa = require('btoa');
 
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
@@ -35,7 +36,7 @@ module.exports = function(passport) {
                 contextId: lti.context_id,
                 instanceId: lti.tool_consumer_instance_guid,
                 isAdmin: (lti.roles.indexOf('Instructor') > -1),
-                sourcedId: lti.lis_result_sourcedid
+                sdid: btoa(lti.lis_result_sourcedid)
             };
             //console.log(provider)
             return done(null, user, resource, provider);

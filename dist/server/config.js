@@ -1,10 +1,5 @@
 'use strict';
 
-var endpoints = '';
-if (process.env.develop) {
-    endpoints = '/components/endpoints'
-}
-
 var config = {
     mongoDB: process.env.mongodb || 'mongodb://127.0.0.1:27017/capira',
     cookieSecret: process.env.cookieSecret || 'cookieSecret',
@@ -14,9 +9,9 @@ var config = {
     },
     port: process.env.PORT || process.env.app_port || 9898,
     webRoot: './dist/client',
-    playerEndpoint: endpoints + '/player/#/',
-    editorEndpoint: endpoints + '/editor/#/',
-    createEndpoint: endpoints + '/create/#' + endpoints + '/editor/#/',
+    playerEndpoint: '/player/#/',
+    editorEndpoint: '/editor/#/',
+    createEndpoint: '/create/#' + '/editor/#/',
     debug: true,
     // Path to your public SSL key and certificate (if you want to use the Capira Server without a reverse proxy like nginx)
     // ssl: {

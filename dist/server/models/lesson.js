@@ -15,7 +15,8 @@ var LessonSchema = new mongoose.Schema({
         type: Object
     },
     notInitialized: Boolean,
-    isAdmin: Boolean
+    isAdmin: Boolean,
+    sdid: String
 });
 var Lesson = mongoose.model('Lesson', LessonSchema);
 
@@ -74,6 +75,7 @@ module.exports = function(router) {
             if (user) {
                 console.log('fetch lesson. user',user);
                 lesson.isAdmin = req.user.isAuthorized(lesson.resource);
+                lesson.sdid = req.user.sdid;
             }
             res.json(lesson);
         });
