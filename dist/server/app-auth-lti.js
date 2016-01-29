@@ -22,6 +22,7 @@ module.exports = function(passport) {
 
     return new LTIStrategy(config, function(lti, done) {
         this._createProvider(null, function(a, provider) {
+           // console.log(lti);
             var resource = {
                 resourceId: lti.resource_link_id,
                 contextId: lti.context_id,
@@ -34,6 +35,7 @@ module.exports = function(passport) {
                 contextId: lti.context_id,
                 instanceId: lti.tool_consumer_instance_guid,
                 isAdmin: (lti.roles.indexOf('Instructor') > -1),
+                sourcedId: lti.lis_result_sourcedid
             };
             //console.log(provider)
             return done(null, user, resource, provider);

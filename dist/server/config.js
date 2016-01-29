@@ -1,7 +1,7 @@
 'use strict';
 
 var endpoints = '';
-if (!process.env.dev) {
+if (process.env.develop) {
     endpoints = '/components/endpoints'
 }
 
