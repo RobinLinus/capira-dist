@@ -1,8 +1,8 @@
 # Installation 
 - Make sure you have installed `node`, `npm` and `mongodb`.
 - Save this folder anywhere on your system
-- Open `server/config.js` in a Text Editor and set your `consumerKey` and your `consumerSecret`.
-- If you want to use SSL, add the path to your public key and certificate to `server/config.js`
+- Open `dist/server/config.js` in a Text Editor and set your `consumerKey` and your `consumerSecret`.
+- If you want to use SSL, add the path to your public key and certificate to `dist/server/config.js`
 - Run `npm start` from the root directory to install the dependencies and start the Capira Server
 
 # Integrate Capira into your Learning Management System
