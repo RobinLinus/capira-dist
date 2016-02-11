@@ -73,9 +73,12 @@ module.exports = function(router) {
                 res.send('Not found!');
             }
             if (user) {
-                console.log('fetch lesson. user',user);
+                console.log('fetch lesson. user', user);
+                console.log(req.user);
                 lesson.isAdmin = req.user.isAuthorized(lesson.resource);
                 lesson.sdid = req.user.sdid;
+            } else {
+                lesson.isAdmin = false;
             }
             res.json(lesson);
         });
