@@ -14,7 +14,7 @@ module.exports = function(app) {
 
                 var id = atob(req.params.id);
                 var score = Number(atob(req.params.score));
-                console.log(id, score);
+                //console.log(id, score);
 
                 var outcome = new lti.OutcomeService({
                     consumer_key: config.lti.consumerKey,
@@ -24,7 +24,7 @@ module.exports = function(app) {
                     result_data_types: [],
                 });
                 outcome.send_read_result(function(err, result) {
-                    if (!result || result < score) {
+                    if (err || !result || result < score) {
                         outcome.send_replace_result(score, function(err, result) {
                             res.send('grade', result)
                         });

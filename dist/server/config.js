@@ -21,6 +21,7 @@ var config = {
 }
 
 
+console.log('Server is running on Port ', config.port);
 
 if (!process.env.lti_secret) {
     console.warn('No LTI Secret is set!');
