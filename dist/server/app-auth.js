@@ -47,8 +47,8 @@ app.post('/', function(req, res, next) {
             if (err) {
                 return next(err);
             }
-            console.log('user', user);
-            console.log('requestedResource', requestedResource);
+            //console.log('user', user);
+            //console.log('requestedResource', requestedResource);
 
             // Find requested resource in capira-db
             Lesson.find({
