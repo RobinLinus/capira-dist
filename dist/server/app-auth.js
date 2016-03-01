@@ -30,7 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// Create our Express router
+// Create our Express router 
 var router = express.Router();
 var Lesson = Lesson(router);
 

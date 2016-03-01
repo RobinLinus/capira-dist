@@ -32,7 +32,7 @@ module.exports = function(passport) {
             };
 
             var _sdid = lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : '';
-
+  
             var user = {
                 id: lti.user_id,
                 contextId: lti.context_id,
