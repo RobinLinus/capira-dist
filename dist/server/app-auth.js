@@ -16,13 +16,13 @@ mongoose.connect(config.mongoDB);
 
 var express = require('express');
 var app = express();
-var oneDay = 86400000;
+var twoDays = 2*86400000;
 
 app.enable('trust proxy');
 
 app.use(compression());
 
-app.use(express.static(config.webRoot, { maxAge: oneDay }));
+app.use(express.static(config.webRoot, { maxAge: twoDays }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
     extended: false
