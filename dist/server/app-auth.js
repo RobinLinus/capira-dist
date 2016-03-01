@@ -11,7 +11,7 @@ var lti = require('./app-auth-lti')(passport);
 passport.use(lti);
 
 var mongoose = require('mongoose');
-mongoose.createConnection(config.mongoDB);
+mongoose.connect(config.mongoDB);
 
 var express = require('express');
 var app = express();
