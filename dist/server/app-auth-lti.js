@@ -31,12 +31,14 @@ module.exports = function(passport) {
                 title: lti.resource_link_title,
             };
 
+            var sdid = lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : '';
+
             var user = {
                 id: lti.user_id,
                 contextId: lti.context_id,
                 instanceId: lti.tool_consumer_instance_guid,
                 isAdmin: (lti.roles.indexOf('Instructor') > -1),
-                sdid: lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : ""
+                sdid: sdid
             };
             //console.log(provider)
             return done(null, user, resource, provider);
