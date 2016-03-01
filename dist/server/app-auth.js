@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var config = require('./config');
 var Lesson = require('./models/lesson');
+var compression = require('compression');
 
 /* passport lti */
 var passport = require('passport');
@@ -15,8 +16,13 @@ mongoose.connect(config.mongoDB);
 
 var express = require('express');
 var app = express();
+var oneDay = 86400000;
+
 app.enable('trust proxy');
-app.use(express.static(config.webRoot));
+
+app.use(compression());
+
+app.use(express.static(config.webRoot, { maxAge: oneDay }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
     extended: false
