@@ -33390,7 +33390,7 @@ Polymer({
             }
         },
         show: function(parentOverlay, parentCombination) {
-            if (parentOverlay && parentCombination) {
+            if (parentOverlay && parentOverlay.id && parentCombination ) {
                 this.parentOverlay = parentOverlay;
                 this.parentCombination = parentCombination;
             } else {
