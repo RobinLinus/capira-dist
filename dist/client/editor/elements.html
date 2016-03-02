@@ -23758,7 +23758,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-menu class="dropdown-content" selected="{{action}}" id="action">
                     <paper-item>Play video</paper-item>
                     <paper-item>Seek to</paper-item>
-                    <paper-item>Show overlay</paper-item>
+                    <paper-item>Next Overlay</paper-item>
                     <paper-item>Repeat Question</paper-item>
                 </paper-menu>
             </paper-dropdown-menu>
@@ -33390,7 +33390,7 @@ Polymer({
             }
         },
         show: function(parentOverlay, parentCombination) {
-            if (parentOverlay && parentOverlay.id && parentCombination ) {
+            if (parentOverlay && parentOverlay.id && parentCombination && parentCombination.reaction) {
                 this.parentOverlay = parentOverlay;
                 this.parentCombination = parentCombination;
             } else {
