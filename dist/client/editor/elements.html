@@ -14103,26 +14103,34 @@ Capira.FocusableQuiz = {
         var elem = this.$.card;
         elem = elem.$.questionMarkup ? elem.$.questionMarkup : elem.$.questionFeedback.$.questionMarkup;
         elem = elem.$.content;
-        setTimeout(function() {
-            this.selectElementText(elem);
-        }.bind(this), 800);
+        this.selectElementText(elem);
+
+    },
+
+    focusFeedback: function() {
+        var elem = this.$.card;
+        elem = elem.$.feedback ? elem.$.feedback : elem.$.questionFeedback.$.feedback;
+        elem = elem.$.content;
+        this.selectElementText(elem);
     },
 
     selectElementText: function(el, win) {
-        win = win || window;
-        var doc = win.document,
-            sel, range;
-        if (win.getSelection && doc.createRange) {
-            sel = win.getSelection();
-            range = doc.createRange();
-            range.selectNodeContents(el);
-            sel.removeAllRanges();
-            sel.addRange(range);
-        } else if (doc.body.createTextRange) {
-            range = doc.body.createTextRange();
-            range.moveToElementText(el);
-            range.select();
-        }
+        setTimeout(function() {
+            win = win || window;
+            var doc = win.document,
+                sel, range;
+            if (win.getSelection && doc.createRange) {
+                sel = win.getSelection();
+                range = doc.createRange();
+                range.selectNodeContents(el);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } else if (doc.body.createTextRange) {
+                range = doc.body.createTextRange();
+                range.moveToElementText(el);
+                range.select();
+            }
+        }, 800);
     }
 }
 </script>
@@ -15088,6 +15096,8 @@ window.Capira.QuizEditPageImpl = {
                 this.selectedCombination = null;
                 Polymer.dom(this.root).querySelector('#quiz').focusQuestion();
             }.bind(this), 500);
+        } else {
+            Polymer.dom(this.root).querySelector('#quiz').focusFeedback();
         }
     },
 
@@ -23672,9 +23682,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <style>
         :host {
             display: block;
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+        
+        paper-button {
+            width: 98%;
         }
         </style>
-        <paper-button hidden="{{combination.reaction.target}}" raised="" on-tap="_create">Create an Overlay</paper-button>
+        <paper-button hidden="{{combination.reaction.target}}" raised="" on-tap="_create">Create next Overlay</paper-button>
         <paper-button hidden="{{!combination.reaction.target}}" raised="" on-tap="_show">Show Overlay</paper-button>
     </template>
     <script>
@@ -32087,7 +32103,7 @@ Polymer({
             }.bind(this), 3000);
         },
         _hideControls: function() {
-            if (this.isPlaying) { //don't hide during pause
+            if (this.isPlaying && !window.isEditor) { //don't hide during pause and always display in editor
                 this.$.controls.hide();
             }
         },
@@ -32491,35 +32507,35 @@ Polymer({
 </script>
 <dom-module id="unit-right-bar" assetpath="../../../editor/unit-edit-page/">
     <template>
-    <style>
-    :host {
-        display: block;
-    }
-
-    #list {
-        @apply(--layout-vertical);
-        @apply(--layout-scroll);
-        height: calc(100% - 88px);
-    }
-
-    .preview {
-        @apply(--layout);
-        @apply(--layout-center-center);
-        width: 100%;
-        box-sizing: border-box;
-        height: 216px;
-        min-height: 216px;
-        padding: 8px;
-        border-bottom: 1px solid var(--divider-color);
-        box-sizing: border-box;
-        padding-bottom: 16px;
-        position: relative;
-    }
-
-    .preview:hover {
-        background-color: white;
-    }
-     </style>
+        <style>
+        :host {
+            display: block;
+        }
+        
+        #list {
+            @apply(--layout-vertical);
+            @apply(--layout-scroll);
+            height: calc(100% - 88px);
+        }
+        
+        .preview {
+            @apply(--layout);
+            @apply(--layout-center-center);
+            width: 100%;
+            box-sizing: border-box;
+            height: 216px;
+            min-height: 216px;
+            padding: 8px;
+            border-bottom: 1px solid var(--divider-color);
+            box-sizing: border-box;
+            padding-bottom: 16px;
+            position: relative;
+        }
+        
+        .preview:hover {
+            background-color: white;
+        }
+        </style>
         <right-bar-header>Overlays in this Video
             <div class="flex"></div>
             <paper-fab icon="editor-icons:add" on-tap="_create"></paper-fab>
@@ -32552,7 +32568,7 @@ Polymer({
             if (app.player) {
                 app.player.pause();
                 if (overlay.event) {
-                    app.player.seekTo(overlay.event.start,true);
+                    app.player.seekTo(overlay.event.start, true);
                 }
 
             }
@@ -32561,6 +32577,15 @@ Polymer({
             return this._getOverlayStart(o1) - this._getOverlayStart(o2);
         },
         _getOverlayStart: function(o) {
+            if (o.parentId) {
+                return app.unit.overlays.reduce(function(a, e) {
+                    if (e.id === o.parentId) {
+                        return this._getOverlayStart(e) + 0.001;
+                    } else {
+                        return a;
+                    }
+                }.bind(this), -1);
+            }
             return (o.event && o.event.start) ? o.event.start : 1000;
         },
         _create: function() {
