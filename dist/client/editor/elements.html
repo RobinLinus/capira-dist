@@ -14130,7 +14130,7 @@ Capira.FocusableQuiz = {
                 range.moveToElementText(el);
                 range.select();
             }
-        }, 800);
+        }, 300);
     }
 }
 </script>
@@ -15092,7 +15092,7 @@ window.Capira.QuizEditPageImpl = {
     _reset: function(e) {
         if (e.detail === 'default') {
             setTimeout(function() {
-                this.$.quiz.fire('answer-changed');
+                this.$.quiz.reset(true);
                 this.selectedCombination = null;
                 Polymer.dom(this.root).querySelector('#quiz').focusQuestion();
             }.bind(this), 500);
@@ -15986,6 +15986,11 @@ Capira.QuizImpl = {
             this.$.card.ui._nextAction();
         } else {
             this.$.card._nextAction();
+        }
+    },
+    reset: function(hideFab) {
+        if (this.$.card) {
+            this.$.card.reset(hideFab);
         }
     }
 };
@@ -26459,9 +26464,14 @@ Polymer({
             this.$.fab.show();
         },
         show: function() {
+            this.reset();
+        },
+        reset: function(hideFab) {
             this._opened = true;
             this._state = 'question';
-            this.$.fab.hide();
+            if (hideFab) {
+                this.$.fab.hide();
+            }
         },
         showFeedback: function() {
             if (this.combination) {
@@ -26704,6 +26714,9 @@ Capira.OverlayScaling = {
         },
         attached: function() {
             this.ui = this.$.questionFeedback;
+        },
+        reset: function(hideFab) {
+            this.$.questionFeedback.reset(hideFab);
         }
     });
 })();
