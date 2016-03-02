@@ -26359,10 +26359,7 @@ Polymer({
 (function() {
     Polymer({
         is: 'quiz-question-card',
-        behaviors: {
-            core: [Polymer.NeonAnimationRunnerBehavior],
-            editor: [Capira.EditableQuestionCard]
-        },
+        behaviors: [Polymer.NeonAnimationRunnerBehavior],
         properties: {
             question: {
                 type: String,
@@ -26438,30 +26435,32 @@ Polymer({
                 this.$.container.classList.remove('neutral');
                 this.$.container.classList.remove('correct');
                 this.$.container.classList.remove('wrong');
-                switch (newState) {
-                    case 'correct':
-                        this.$.container.classList.add('correct');
-                        if (this.animateWrong && this.cancelAnimation) {
-                            this.cancelAnimation();
-                            this.playAnimation('correct-answer');
-                        }
-                        return;
-                    case 'wrong':
-                        this.$.container.classList.add('wrong');
-                        if (this.animateWrong && this.cancelAnimation) {
-                            this.cancelAnimation();
-                            this.playAnimation('incorrect-answer');
-                        }
-                        return;
-                    case 'neutral':
-                        this.$.container.classList.add('neutral');
-                        if (this.animateWrong && this.cancelAnimation) {
-                            this.cancelAnimation();
-                            this.playAnimation('correct-answer');
-                        }
-                        return;
-                    default:
-                        return;
+                if (this.cancelAnimation) {
+                    switch (newState) {
+                        case 'correct':
+                            this.$.container.classList.add('correct');
+                            if (this.animateWrong) {
+                                this.cancelAnimation();
+                                this.playAnimation('correct-answer');
+                            }
+                            return;
+                        case 'wrong':
+                            this.$.container.classList.add('wrong');
+                            if (this.animateWrong) {
+                                this.cancelAnimation();
+                                this.playAnimation('incorrect-answer');
+                            }
+                            return;
+                        case 'neutral':
+                            this.$.container.classList.add('neutral');
+                            if (this.animateWrong) {
+                                this.cancelAnimation();
+                                this.playAnimation('correct-answer');
+                            }
+                            return;
+                        default:
+                            return;
+                    }
                 }
             }
         },
@@ -32434,11 +32433,17 @@ Polymer({
             width: 400px;
         }
         
+        #videoSrc {
+            width: 160px;
+            margin-left: 24px;
+        }
+        
         a {
             color: #212121;
         }
         </style>
         <paper-input value="{{unit.title}}" label="Video Title"></paper-input>
+        <paper-input value="{{unit.video.src}}" label="Video URI" id="videoSrc"></paper-input>
         <span class="flex"></span>
         <share-button unit-id="{{unit._id}}"></share-button>
         <a href="/player/{{hashedId}}" target="_blank" id="view">
