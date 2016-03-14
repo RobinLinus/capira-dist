@@ -15102,7 +15102,8 @@ window.Capira.QuizEditPageImpl = {
                 this.selectedCombination = null;
                 Polymer.dom(this.root).querySelector('#quiz').focusQuestion();
             }.bind(this), 500);
-        } else {
+        }
+        if (e.detail === 'combination') {
             Polymer.dom(this.root).querySelector('#quiz').focusFeedback();
         }
     },
@@ -31610,6 +31611,7 @@ Polymer({
         }
         </style>
         <google-youtube main="" video-id="[[src]]" height="100%" width="100%" rel="0" autoplay="[[autoplay]]" controls="0" showinfo="0" fs="0" id="player" duration="{{duration}}" playbackstarted="{{playbackstarted}}" state="{{state}}">
+        
         </google-youtube>
     </template>
 </dom-module>
