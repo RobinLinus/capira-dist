@@ -16508,42 +16508,36 @@ window.Capira.ResizableOverlay = {
         window.dispatchEvent(new Event('resize'));
     },
     _show: function() {
-        this.resize();
-    },
-    _shown: function() {
-        this.resize();
         window.dispatchEvent(new Event('resize'));
     },
     resize: function() {
-        this.dispatch('resize', function() {
-            //console.log('resizable-overlay.html');
+        //console.log('resizable-overlay.html');
 
-            var height = this.offsetHeight;
-            var width = this.offsetWidth;
+        var height = this.offsetHeight;
+        var width = this.offsetWidth;
 
-            // if (height < 190) {
-            //     width = window.screen.width;
-            //     height = window.screen.height;
-            // }
+        if (height < 190) {
+            width = window.screen.width;
+            height = window.screen.height;
+        }
 
-            if (height * 16.0 / 9 > width) {
-                height = width * 9.0 / 16;
-            } else {
-                width = height * 16.0 / 9;
-            }
+        if (height * 16.0 / 9 > width) {
+            height = width * 9.0 / 16;
+        } else {
+            width = height * 16.0 / 9;
+        }
 
-            var factor = width / 800;
-            factor *= this.scalingFactor;
-            var s = this.resizingElem.style;
-            s.setProperty('transform', 'scale(' + factor + ')', '');
-            s.setProperty('-webkit-transform', 'scale(' + factor + ')', '');
-            s.setProperty('-moz-transform', 'scale(' + factor + ')', '');
-            s.setProperty('-o-transform', 'scale(' + factor + ')', '');
-            s.setProperty('transform-origin', 'top left', '');
-            s.setProperty('-webkit-transform-origin', 'top left', '');
-            s.setProperty('-moz-transform-origin', 'top left', '');
-            s.setProperty('-o-transform-origin', 'top left', '');
-        }, 200);
+        var factor  = width / 800;
+        factor *= this.scalingFactor;
+        var s = this.resizingElem.style;
+        s.setProperty('transform', 'scale(' + factor + ')', '');
+        s.setProperty('-webkit-transform', 'scale(' + factor + ')', '');
+        s.setProperty('-moz-transform', 'scale(' + factor + ')', '');
+        s.setProperty('-o-transform', 'scale(' + factor + ')', '');
+        s.setProperty('transform-origin', 'top left', '');
+        s.setProperty('-webkit-transform-origin', 'top left', '');
+        s.setProperty('-moz-transform-origin', 'top left', '');
+        s.setProperty('-o-transform-origin', 'top left', '');
     }
 
 };
@@ -26580,7 +26574,7 @@ Capira.OverlayScaling = {
         }
         return this.parentNode;
     },
-    get elementToScale(){
+    get elementToScale() {
         return this;
     },
     attached: function() {
@@ -26589,11 +26583,13 @@ Capira.OverlayScaling = {
 
         function resize() {
             var parentWidth = window.innerWidth;
+            var parentHeight = window.innerHeight;
             if (that.parent && that.parent.clientWidth) {
                 parentWidth = that.parent.clientWidth;
+                parentHeight = that.parent.clientHeight;
             }
 
-            if (parentWidth < 800) {
+            if (parentWidth < 800 || parentHeight < 450) {
                 var scalingFactor = parentWidth / 800;
                 that.elementToScale.style.transform = 'scale(' + scalingFactor + ')';
                 that.elementToScale.setAttribute('scale', true);
