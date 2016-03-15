@@ -26579,9 +26579,12 @@ Capira.OverlayScaling = {
     },
     attached: function() {
 
+        this.resize();
+    },
+    resize: function() {
         var that = this;
 
-        function resize() {
+        function resizeMe() {
             var parentWidth = window.innerWidth;
             var parentHeight = window.innerHeight;
             if (that.parent && that.parent.clientWidth) {
@@ -26607,7 +26610,7 @@ Capira.OverlayScaling = {
 
         window.addEventListener('resize', resize, false);
         this.async(function() {
-            resize();
+            resizeMe();
         }, 1500);
     }
 }
@@ -26714,6 +26717,7 @@ Capira.OverlayScaling = {
         },
         show: function() {
             this.$.questionFeedback.show();
+            this.resize();
         },
         wasAnswered: function() {
             this.$.questionFeedback.wasAnswered();
