@@ -16510,16 +16510,19 @@ window.Capira.ResizableOverlay = {
     _show: function() {
         this.resize();
     },
+    _shown: function() {
+        this.resize();
+    },
     resize: function() {
         //console.log('resizable-overlay.html');
 
         var height = this.offsetHeight;
         var width = this.offsetWidth;
 
-        if (height < 190) {
-            width = window.screen.width;
-            height = window.screen.height;
-        }
+        // if (height < 190) {
+        //     width = window.screen.width;
+        //     height = window.screen.height;
+        // }
 
         if (height * 16.0 / 9 > width) {
             height = width * 9.0 / 16;
@@ -26629,7 +26632,7 @@ Capira.OverlayScaling = {
         }
         /* tablet-small */
         
-        @media all and (max-width: 600px) {
+        @media (max-height: 300px) and (max-width: 600px) {
             #quiz {
                 width: 100%;
                 min-height: 100vh;
@@ -26645,7 +26648,7 @@ Capira.OverlayScaling = {
             }
         }
         
-        @media all and (min-width: 1024px) {
+        @media all and (min-height: 800px) {
             :host {
                 padding-top: 64px;
             }
