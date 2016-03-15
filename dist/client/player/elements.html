@@ -19123,7 +19123,7 @@ Capira.OverlayScaling = {
     attached: function() {
 
         this.resize();
-        window.addEventListener('resize', this.resize, false);
+        window.addEventListener('resize', this.resize.bind(this), false);
 
     },
     resize: function() {
