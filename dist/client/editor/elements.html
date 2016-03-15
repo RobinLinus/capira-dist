@@ -16508,10 +16508,7 @@ window.Capira.ResizableOverlay = {
         window.dispatchEvent(new Event('resize'));
     },
     _show: function() {
-        resize();
-    },
-    _shown: function() {
-        resize();
+        this.resize();
     },
     resize: function() {
         //console.log('resizable-overlay.html');
