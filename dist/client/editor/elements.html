@@ -26580,6 +26580,8 @@ Capira.OverlayScaling = {
     attached: function() {
 
         this.resize();
+        window.addEventListener('resize', this.resize, false);
+
     },
     resize: function() {
         var that = this;
@@ -26608,7 +26610,6 @@ Capira.OverlayScaling = {
             }
         }
 
-        window.addEventListener('resize', resize, false);
         this.async(function() {
             resizeMe();
         }, 1500);
