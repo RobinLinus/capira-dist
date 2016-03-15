@@ -26588,13 +26588,14 @@ Capira.OverlayScaling = {
                 parentWidth = that.parent.clientWidth;
                 parentHeight = that.parent.clientHeight;
             }
-            console.log('scale',parentWidth,parentHeight)
+            console.log('scale', parentWidth, parentHeight)
 
-            if (parentWidth < 800 || parentHeight < 450) {
-                if (parentWidth * 9 / 16 > parentHeight) {
-                    var scalingFactor = parentHeight / 450;
+            if (parentWidth < 800 || parentHeight < 350) {
+                var scalingFactor = 1;
+                if ((parentWidth * 9 / 16) > parentHeight) {
+                    scalingFactor = parentHeight / 450;
                 } else {
-                    var scalingFactor = parentWidth / 800;
+                    scalingFactor = parentWidth / 800;
                 }
                 that.elementToScale.style.transform = 'scale(' + scalingFactor + ')';
                 that.elementToScale.setAttribute('scale', true);
@@ -26607,7 +26608,7 @@ Capira.OverlayScaling = {
         window.addEventListener('resize', resize, false);
         this.async(function() {
             resize();
-        },500);
+        }, 500);
     }
 }
 </script>
