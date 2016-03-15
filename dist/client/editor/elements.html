@@ -26610,7 +26610,7 @@ Capira.OverlayScaling = {
             }
         }
 
-        this.dispatch(function() {
+        this.debounce('resize',function() {
             resizeMe();
         }, 300);
     }
