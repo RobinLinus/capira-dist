@@ -13922,6 +13922,9 @@ function setCaretRange(element, index) {
     }
 }
 
+
+
+
 String.prototype.regexIndexOf = function(regex, startpos) {
     var indexOf = this.substring(startpos || 0).search(regex);
     return (indexOf >= 0) ? (indexOf + (startpos || 0)) : indexOf;
@@ -14029,6 +14032,25 @@ window.Capira.EditableMarkup = {
     },
     _latexChanged: function() {
         this.set('content', this.el.innerHTML);
+    },
+    selectAllText: function() {
+        var el = this.$.content;
+        setTimeout(function() {
+            var win = window;
+            var doc = win.document,
+                sel, range;
+            if (win.getSelection && doc.createRange) {
+                sel = win.getSelection();
+                range = doc.createRange();
+                range.selectNodeContents(el);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } else if (doc.body.createTextRange) {
+                range = doc.body.createTextRange();
+                range.moveToElementText(el);
+                range.select();
+            }
+        }, 100);
     }
 };
 </script>
@@ -16788,6 +16810,10 @@ window.Capira.EditSingleAnswer = {
             this.set('overlay.options', []);
         }
         this.push('overlay.options', 'Type option ' + (this.overlay.options.length + 1) + ' here');
+        this.async(function() {
+            var options = Polymer.dom(this.root).querySelectorAll('mark-up');
+            options[options.length-1].selectAllText();
+        })
     },
     _deleteItem: function(e) {
         var option = e.path.reduce(function(a, el) {
