@@ -16787,10 +16787,15 @@ window.Capira.EditSingleAnswer = {
         if (!this.overlay.options) {
             this.set('overlay.options', []);
         }
-        this.push('overlay.options', 'Type option ' + (this.overlay.options.length + 1)+' here');
+        this.push('overlay.options', 'Type option ' + (this.overlay.options.length + 1) + ' here');
     },
     _deleteItem: function(e) {
-        var option = e.path[5].name;
+        var option = e.path.reduce(function(a, el) {
+            return el.getAttribute && el.getAttribute('role') === 'option' ? el.name : a
+        }, null);
+        if (option === null) {
+            return console.error('option is null');
+        }
         var index = this.overlay.options.indexOf(option);
         this.splice('overlay.options', index, 1);
     }
@@ -30025,7 +30030,7 @@ Polymer({
                         <paper-checkbox on-tap="_selectionChanged" data-model="{{item}}">
                             <mark-up content="{{item}}" pointer-events="1">placeholder</mark-up>
                         </paper-checkbox>
-                        <paper-icon-button icon="editor-icons:delete" hidden$="{{!editor}}" on-tap="_deleteItem"></paper-icon-button>
+                        <paper-icon-button icon="editor-icons:delete" hidden$="{{!editor}}" on-tap="_deleteItem" name="{{item}}"></paper-icon-button>
                     </div>
                 </template>
             </div>
@@ -30369,7 +30374,7 @@ Polymer({
                             <paper-ripple></paper-ripple>
                             <span class="letter">[[computeLetter(index)]]</span>
                             <mark-up content="{{item}}"></mark-up>
-                            <paper-icon-button icon="editor-icons:delete" hidden$="{{!editor}}" on-tap="_deleteItem"></paper-icon-button>
+                            <paper-icon-button icon="editor-icons:delete" hidden$="{{!editor}}" on-tap="_deleteItem" name="{{item}}"></paper-icon-button>
                         </paper-item>
                     </template>
                 </iron-selector>

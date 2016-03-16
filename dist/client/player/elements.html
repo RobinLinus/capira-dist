@@ -22025,7 +22025,7 @@ Polymer({
         .option:hover paper-icon-button {
             display: block;
         }
-        </style><quiz-card id=card question={{overlay.question}} combination={{combination}}><div id=items><template is=dom-repeat items={{overlay.options}} sort=_shuffle id=list><div class=option><paper-checkbox on-tap=_selectionChanged data-model={{item}}><mark-up content={{item}} pointer-events=1>placeholder</mark-up></paper-checkbox><paper-icon-button icon=editor-icons:delete hidden$={{!editor}} on-tap=_deleteItem></paper-icon-button></div></template></div></quiz-card></template></dom-module><script>
+        </style><quiz-card id=card question={{overlay.question}} combination={{combination}}><div id=items><template is=dom-repeat items={{overlay.options}} sort=_shuffle id=list><div class=option><paper-checkbox on-tap=_selectionChanged data-model={{item}}><mark-up content={{item}} pointer-events=1>placeholder</mark-up></paper-checkbox><paper-icon-button icon=editor-icons:delete hidden$={{!editor}} on-tap=_deleteItem name={{item}}></paper-icon-button></div></template></div></quiz-card></template></dom-module><script>
 'use strict';
 (function() {
     Polymer({
@@ -22187,7 +22187,7 @@ Polymer({
         paper-item:hover paper-icon-button {
             display: block;
         }
-        </style><quiz-card id=card question={{overlay.question}} combination={{combination}}><div id=items><iron-selector selected={{answer}} attr-for-selected=name><template is=dom-repeat items={{overlay.options}} sort=_shuffle><paper-item name={{item}}><paper-ripple></paper-ripple><span class=letter>[[computeLetter(index)]]</span><mark-up content={{item}}></mark-up><paper-icon-button icon=editor-icons:delete hidden$={{!editor}} on-tap=_deleteItem></paper-icon-button></paper-item></template></iron-selector></div></quiz-card></template></dom-module><script>
+        </style><quiz-card id=card question={{overlay.question}} combination={{combination}}><div id=items><iron-selector selected={{answer}} attr-for-selected=name><template is=dom-repeat items={{overlay.options}} sort=_shuffle><paper-item name={{item}}><paper-ripple></paper-ripple><span class=letter>[[computeLetter(index)]]</span><mark-up content={{item}}></mark-up><paper-icon-button icon=editor-icons:delete hidden$={{!editor}} on-tap=_deleteItem name={{item}}></paper-icon-button></paper-item></template></iron-selector></div></quiz-card></template></dom-module><script>
 'use strict';
 (function() {
     Polymer({
