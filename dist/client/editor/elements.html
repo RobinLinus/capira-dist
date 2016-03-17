@@ -33705,8 +33705,16 @@ Polymer({
 
         ready: function() {
             var that = this;
-            this.$.videoId.onkeyup = function() {
+            this.$.videoId.onkeyup = function(e) {
                 that._handleVideoUrl(this.value || '');
+                var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
+                if (charCode === 13) {
+                    this.async(function() {
+                        if (this.valid) {
+                            this._confirm();
+                        }
+                    }, 200);
+                }
             };
         },
 
