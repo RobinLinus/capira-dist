@@ -33743,13 +33743,9 @@ Polymer({
         },
 
         _fetchYoutubeTitle: function(id) {
-            //timeout for to frequent changes in the video-id input
-            if (this.timer) {
-                clearTimeout(this.timer);
-            }
-            var service = this.$.youtubeApi;
-            service.url = 'https://www.googleapis.com/youtube/v3/videos?id=' + id + '&key=AIzaSyBtulzLnwRn3FfkfL-Lg-AhuO8eR8jfXSQ&fields=items(snippet(title))&part=snippet';
             this.debounce('youtube', function() {
+                var service = this.$.youtubeApi;
+                service.url = 'https://www.googleapis.com/youtube/v3/videos?id=' + id + '&key=AIzaSyBtulzLnwRn3FfkfL-Lg-AhuO8eR8jfXSQ&fields=items(snippet(title))&part=snippet';
                 service.generateRequest();
             }, 100);
         },
