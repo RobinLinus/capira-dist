@@ -33675,7 +33675,7 @@ Polymer({
                 <paper-input label="Enter an URL of a Video." value="[[video.src]]" id="videoId" autofocus=""></paper-input>
             </div>
             <div class="buttons">
-                <paper-button on-click="_confirm" disabled$="{{!valid}}">Create</paper-button>
+                <paper-button on-click="_confirm" disabled$="{{!valid}}" id="confirm">Create</paper-button>
             </div>
         </paper-dialog>
         <iron-ajax id="youtubeApi" handle-as="json" verbose="true" on-response="_handleYoutubeTitle" loading="{{loading}}"></iron-ajax>
@@ -33706,17 +33706,6 @@ Polymer({
         ready: function() {
             var that = this;
             var input = this.$.videoId;
-
-            input.addEventListener('keydown', function(e) {
-                var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
-                if (charCode === 13) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.async(function() {
-                        this._confirm();
-                    }, 300);
-                }
-            });
             input.addEventListener('keyup', function() {
                 that._handleVideoUrl(this.value || '');
             });
@@ -33764,6 +33753,7 @@ Polymer({
                 this.video.type = 'yt';
 
                 this.set('valid', true);
+                this.$.confirm.focus();
             }
         },
 
@@ -33773,6 +33763,7 @@ Polymer({
                 console.log('// ist eine video url');
                 this.video.type = 'html5';
                 this.set('valid', true);
+                this.$.confirm.focus();
             }.bind(this);
             video.onerror = function() {
                 console.log('// ist keine video url');
