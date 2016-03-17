@@ -33673,7 +33673,6 @@ Polymer({
             <h2>Create Unit</h2>
             <div>
                 <paper-input label="Enter an URL of a Video." value="[[video.src]]" id="videoId" autofocus=""></paper-input>
-                <paper-input label="Enter lesson title" value="{{unit.title}}" hidden$="{{!valid}}"></paper-input>
             </div>
             <div class="buttons">
                 <paper-button on-click="_confirm" disabled$="{{!valid}}">Create</paper-button>
