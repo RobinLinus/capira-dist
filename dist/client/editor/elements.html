@@ -13942,10 +13942,12 @@ window.Capira.EditableMarkup = {
     listeners: {
         'edit-latex': '_openLatexEditor',
         'set-latex': '_insertLatex',
-        'latex-changed': '_latexChanged'
+        'latex-changed': '_latexChanged',
+        'focus':'selectAllText'
     },
     _done: function(e) {
         console.log(e);
+        this.blurSelection();
         if (!(e.relatedTarget && e.relatedTarget.nodeName === 'LATEX-EDITOR')) {
             //latex-editor opened - no render
             if (this.el.innerHTML === '' || this.el.innerHTML === this.el.content) {
@@ -13990,9 +13992,9 @@ window.Capira.EditableMarkup = {
                     e.preventDefault();
                 }
             }.bind(this));
-
-
         }
+
+
     },
     _openLatexEditor: function(e) {
         var editor = Capira.EditableLatex.editor;
@@ -14051,6 +14053,13 @@ window.Capira.EditableMarkup = {
                 range.select();
             }
         }, 100);
+    },
+    blurSelection: function() {
+        //it seems as if the blur event just blurs the focused element, but not the selection
+        //therefor we do that manually:
+        if (window.getSelection) {
+            window.getSelection().removeAllRanges()
+        }
     }
 };
 </script>
@@ -14124,35 +14133,13 @@ Capira.FocusableQuiz = {
     focusQuestion: function() {
         var elem = this.$.card;
         elem = elem.$.questionMarkup ? elem.$.questionMarkup : elem.$.questionFeedback.$.questionMarkup;
-        elem = elem.$.content;
-        this.selectElementText(elem);
-
+        elem.selectAllText();
     },
 
     focusFeedback: function() {
         var elem = this.$.card;
         elem = elem.$.feedback ? elem.$.feedback : elem.$.questionFeedback.$.feedback;
-        elem = elem.$.content;
-        this.selectElementText(elem);
-    },
-
-    selectElementText: function(el, win) {
-        setTimeout(function() {
-            win = win || window;
-            var doc = win.document,
-                sel, range;
-            if (win.getSelection && doc.createRange) {
-                sel = win.getSelection();
-                range = doc.createRange();
-                range.selectNodeContents(el);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            } else if (doc.body.createTextRange) {
-                range = doc.body.createTextRange();
-                range.moveToElementText(el);
-                range.select();
-            }
-        }, 300);
+        elem.selectAllText();
     }
 }
 </script>
@@ -16812,8 +16799,8 @@ window.Capira.EditSingleAnswer = {
         this.push('overlay.options', 'Type option ' + (this.overlay.options.length + 1) + ' here');
         this.async(function() {
             var options = Polymer.dom(this.root).querySelectorAll('mark-up');
-            options[options.length-1].selectAllText();
-        })
+            options[options.length - 1].selectAllText();
+        });
     },
     _deleteItem: function(e) {
         var option = e.path.reduce(function(a, el) {
@@ -26076,7 +26063,7 @@ function cleanArray(actual){
         -webkit-transform: translateZ(0);
     }
      </style>
-        <paper-fab icon="{{icon}}" mini$="{{mini}}" src="{{src}}" tabindex="0"></paper-fab>
+        <paper-fab icon="{{icon}}" mini$="{{mini}}" src="{{src}}" tabindex="-1"></paper-fab>
     </template>
 </dom-module>
 <script>
@@ -26381,7 +26368,7 @@ Polymer({
                         </div>
                     </div>
                     <div id="feedback-container">
-                        <mark-up id="feedback" content="{{combination.feedback}}"></mark-up>
+                        <mark-up id="feedback" content="{{combination.feedback}}" tabindex="1233"></mark-up>
                     </div>
                 </div>
             </div>
@@ -30053,10 +30040,10 @@ Polymer({
             <div id="items">
                 <template is="dom-repeat" items="{{overlay.options}}" sort="_shuffle" id="list">
                     <div class="option">
-                        <paper-checkbox on-tap="_selectionChanged" data-model="{{item}}">
+                        <paper-checkbox on-tap="_selectionChanged" data-model="{{item}}" tabindex="-1">
                             <mark-up content="{{item}}" pointer-events="1">placeholder</mark-up>
                         </paper-checkbox>
-                        <paper-icon-button icon="editor-icons:delete" hidden$="{{!editor}}" on-tap="_deleteItem" option="{{item}}"></paper-icon-button>
+                        <paper-icon-button icon="editor-icons:delete" hidden$="{{!editor}}" on-tap="_deleteItem" option="{{item}}" tabindex="-1"></paper-icon-button>
                     </div>
                 </template>
             </div>
@@ -30396,11 +30383,11 @@ Polymer({
             <div id="items">
                 <iron-selector selected="{{answer}}" attr-for-selected="name">
                     <template is="dom-repeat" items="{{overlay.options}}" sort="_shuffle">
-                        <paper-item name="{{item}}">
+                        <paper-item name="{{item}}" tabindex="-1">
                             <paper-ripple></paper-ripple>
                             <span class="letter">[[computeLetter(index)]]</span>
                             <mark-up content="{{item}}"></mark-up>
-                            <paper-icon-button icon="editor-icons:delete" hidden$="{{!editor}}" on-tap="_deleteItem" option="{{item}}"></paper-icon-button>
+                            <paper-icon-button icon="editor-icons:delete" hidden$="{{!editor}}" on-tap="_deleteItem" option="{{item}}" tabindex="-1"></paper-icon-button>
                         </paper-item>
                     </template>
                 </iron-selector>
@@ -30540,7 +30527,10 @@ Polymer({
 (function() {
     Polymer({
         is: 'short-annotation-edit-page',
-        behaviors: [Capira.OverlayEditPage]
+        behaviors: [Capira.OverlayEditPage],
+        _show:function(){
+            this.$$('short-annotation').$$('mark-up').selectAllText();
+        }
     });
 })();
 </script>
@@ -30638,7 +30628,10 @@ Polymer({
         },
         show: function() {
             //document.body.style.backgroundColor = '#b388ff';
-            
+
+        },
+        focus: function() {
+            this.$$('mark-up').selectAllText();
         }
     });
 })();
@@ -30683,8 +30676,8 @@ Polymer({
 <dom-module id="standard-annotation-edit-page" assetpath="../../../socratic-standard-annotation-editor/">
     <template>
         <edit-page-layout>
-			<overlay-top-bar top="" overlay="{{overlay}}"></overlay-top-bar>
-			<standard-annotation main="" overlay="{{overlay}}"></standard-annotation>
+            <overlay-top-bar top="" overlay="{{overlay}}"></overlay-top-bar>
+            <standard-annotation main="" overlay="{{overlay}}"></standard-annotation>
         </edit-page-layout>
     </template>
 </dom-module>
@@ -30693,7 +30686,10 @@ Polymer({
 (function() {
     Polymer({
         is: 'standard-annotation-edit-page',
-        behaviors: [Capira.OverlayEditPage]
+        behaviors: [Capira.OverlayEditPage],
+        _show: function() {
+            this.$$('standard-annotation').$$('annotation-card').focus();
+        }
     });
 })();
 </script>
@@ -32573,8 +32569,13 @@ Polymer({
             overflow: hidden;
             cursor: pointer;
         }
+        
+        .click-blocker {
+            @apply(--layout-fit);
+        }
         </style>
         <content></content>
+        <div class="click-blocker"></div>
     </template>
 </dom-module>
 <script>
@@ -33368,60 +33369,61 @@ Polymer({
 </script>
 <dom-module id="overlay-miniature-card" assetpath="../../../overlay-editor/overlays-wizard/">
     <template>
-    <style> 
-    :host {
-        display: inline-block;
-        margin: 8px;
-        cursor: pointer;
-    }
-    
-    overlay-miniature {
-        opacity: 0.8;
-    }
-    
-    :host:hover overlay-miniature {
-        opacity: 1;
-    }
-    
-    paper-material {
-        display: flex;
-        width: 424px;
-    }
-    
-    #caption {
-        background-color: var(--paper-teal-400);
-        height: 104px;
-        box-sizing: border-box;
-        padding: 8px;
-        color: white;
-        width: 240px;
-    }
-    
-    #title {
-        @apply(--paper-font-subhead);
-    }
-    
-    #description {
-        @apply(--paper-font-caption);
-        white-space: normal !important;
-    }
-    
-    iron-icon {
-        background-color: var(--paper-teal-400);
-        color: white;
-        position: absolute;
-        z-index: 1;
-        width: 48px;
-        height: 48px;
-        left: 60px;
-        top: 20px;
-        pointer-events: none;
-        border-radius: 50%;
-        border: 2px solid #26a69a;
-        padding: 4px;
-        background-color: rgba(255, 255, 255, 0.8);
-    }
-     </style>
+        <style>
+        :host {
+            display: inline-block;
+            margin: 8px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        overlay-miniature {
+            opacity: 0.8;
+        }
+        
+        :host:hover overlay-miniature {
+            opacity: 1;
+        }
+        
+        paper-material {
+            display: flex;
+            width: 424px;
+        }
+        
+        #caption {
+            background-color: var(--paper-teal-400);
+            height: 104px;
+            box-sizing: border-box;
+            padding: 8px;
+            color: white;
+            width: 240px;
+        }
+        
+        #title {
+            @apply(--paper-font-subhead);
+        }
+        
+        #description {
+            @apply(--paper-font-caption);
+            white-space: normal !important;
+        }
+        
+        iron-icon {
+            background-color: var(--paper-teal-400);
+            color: white;
+            position: absolute;
+            z-index: 1;
+            width: 48px;
+            height: 48px;
+            left: 60px;
+            top: 20px;
+            pointer-events: none;
+            border-radius: 50%;
+            border: 2px solid #26a69a;
+            padding: 4px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        </style>
         <paper-material elevation="2">
             <iron-icon icon="{{overlay.icon}}" hidden$="{{!overlay.icon}}"></iron-icon>
             <overlay-miniature overlay="{{overlay.preview}}" width="184"></overlay-miniature>
@@ -33442,8 +33444,8 @@ Polymer({
                 type: Object
             }
         },
-        attached:function(){
-            this.tabIndex=0;
+        attached: function() {
+            this.tabIndex = 0;
         }
 
     });
