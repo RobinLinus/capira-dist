@@ -30529,7 +30529,7 @@ Polymer({
         is: 'short-annotation-edit-page',
         behaviors: [Capira.OverlayEditPage],
         _show:function(){
-            this.$$('short-annotation').$$('mark-up').selectAllText();
+            this.$$('short-annotation').$$('mark-up').focus();
         }
     });
 })();
@@ -30631,7 +30631,7 @@ Polymer({
 
         },
         focus: function() {
-            this.$$('mark-up').selectAllText();
+            this.$$('mark-up').focus();
         }
     });
 })();
