@@ -33705,8 +33705,9 @@ Polymer({
 
         ready: function() {
             var that = this;
-            this.$.videoId.onkeyup = function(e) {
-                that._handleVideoUrl(this.value || '');
+            var input = this.$.videoId;
+
+            input.addEventListener('keydown', function(e) {
                 var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
                 if (charCode === 13) {
                     e.preventDefault();
@@ -33715,7 +33716,10 @@ Polymer({
                         this._confirm();
                     }, 300);
                 }
-            };
+            });
+            input.addEventListener('keyup', function() {
+                that._handleVideoUrl(this.value || '');
+            });
         },
 
         _parseYoutubeUrl: function(url) {
