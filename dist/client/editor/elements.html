@@ -15859,7 +15859,8 @@ Capira.ProgressBehavior = {
     }
 }
 </script>
-<script>console.log('intern capira-api loaded');
+<script>
+console.log('intern capira-api loaded');
 
 window.iFrameAPI = new (function(){
 	this.sendJSON = function(json){
@@ -15869,8 +15870,8 @@ window.iFrameAPI = new (function(){
 		copy.unit=window.app.unit._id;
 		window.parent.postMessage(JSON.stringify(copy),'*');
 	}
-})();</script>
-<script>
+})();
+</script><script>
 'use strict';
 window.Capira.QuizProgressImpl = {
     _overlayChanged: function() {
