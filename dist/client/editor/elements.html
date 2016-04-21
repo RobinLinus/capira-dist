@@ -15916,7 +15916,7 @@ window.Capira.QuizProgressImpl = {
         }
     },
     _sendToAPI: function(score) {
-        if (window.iFrameApi) {
+        if (window.iFrameAPI) {
             var totalQuizzes;
             if (app.unit.overlays) {
                 totalQuizzes = app.unit.overlays.reduce(function(a, e) {
@@ -15924,7 +15924,7 @@ window.Capira.QuizProgressImpl = {
                 }, 0);
             }
 
-            iFrameApi.sendJSON({
+            iFrameAPI.sendJSON({
                 layer: this.overlay.id,
                 score: score,
                 time: 15,
