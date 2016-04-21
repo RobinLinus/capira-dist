@@ -1,6 +1,6 @@
 console.log('extern capira-api loaded');
 
-var allowedOrigins = ['http://socrates.cloudnode.de', 'http://www.socrates.cloudnode.de', 'https://www.socrates.cloudnode.de', 'https://socrates.cloudnode.de','http://fh-luebeck.cloudnode.de', 'http://www.fh-luebeck.cloudnode.de', 'https://www.fh-luebeck.cloudnode.de', 'https://fh-luebeck.cloudnode.de']
+var allowedOrigins = ['http://socrates.cloudno.de', 'http://www.socrates.cloudno.de', 'https://www.socrates.cloudno.de', 'https://socrates.cloudno.de','http://fh-luebeck.cloudno.de', 'http://www.fh-luebeck.cloudno.de', 'https://www.fh-luebeck.cloudno.de', 'https://fh-luebeck.cloudno.de']
 
 window.capiraAPI = new(function() {
     var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent';
