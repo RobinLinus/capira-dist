@@ -66,15 +66,20 @@ app.post('/', function(req, res, next) {
             //console.log('requestedResource', requestedResource);
 
             // Find requested resource in capira-db
-            Lesson.find({
+
+            var query = requestedResource.lessonId ? {
+                _id: requestedResource.lessonId
+            } : {
                 'resource.resourceId': requestedResource.resourceId,
                 'resource.instanceId': requestedResource.instanceId
-            }, {
+            }
+
+            Lesson.find(query, {
                 _id: 1,
                 notInitialized: 1
             }, function(err, results) {
                 //if lesson not exists yet
-                if (results.length === 0) {
+                if (results && results.length === 0) {
                     //check if user is admin
                     if (!user.isAdmin) {
                         return res.send('unauthorized request');
