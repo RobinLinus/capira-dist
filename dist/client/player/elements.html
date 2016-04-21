@@ -24163,7 +24163,8 @@ Polymer({
             },
             state: {
                 type: Number,
-                notify: true
+                notify: true,
+                observer: '_stateObserver'
             },
             isPlaying: {
                 computed: '_isPlaying(state)',
@@ -24199,6 +24200,14 @@ Polymer({
                 return false;
             }
             return false;
+        },
+
+        _stateObserver: function(state) {
+            switch (state) {
+                case 0:
+                    this.fire('video-ended');
+                    break;
+            }
         }
 
     });
