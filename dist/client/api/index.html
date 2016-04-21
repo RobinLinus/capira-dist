@@ -54,17 +54,17 @@
 	<h2>Usage:</h2>
 	<h3>Step 1: </h3>
 	Embedding Capira via iFrame and activating the capira-API by adding the parameter <b>iframeapi</b>
-	<div>
+	<pre>
 		<iframe src="http://socrates.cloudno.de/player/#56e76b23ff1f31f73488ece5" width="650" height="360" allowfullscreen></iframe>
-	</div>
+	</pre>
 	<h3>Step 2:</h3>
 	Add the capira-api.js
-	<div>
+	<pre>
 		<script src="https://<your-server>/api/capira-api.min.js"></script>
-	</div>
+	</pre>
 	<h3>Step 3:</h3>
 	Register your custom EventHandlers like this:
-	<div>
+	<pre>
 		<script>
 			capiraAPI.onQuizSuccess(function(unit,layer,time,score){
 				// do sth with the received data
@@ -83,7 +83,7 @@
 				console.log('Received onUnitFinished: ', unit);
 			});
 		</script>
-	</div>
+	</pre>
 </div>
 
 
