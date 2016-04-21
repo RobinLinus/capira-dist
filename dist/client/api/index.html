@@ -5,7 +5,7 @@
 	<title>Capira-API Showcase</title>
 	<style>
 		#iframe, #received_events {
-			display: block;
+			display: table-cell;
 			width: 45%;
 		}
 		div, h1{
@@ -42,7 +42,7 @@
 
 <div id="iframe">
 	<h2>This is an iFrame. </h2>
-	<iframe src="http://socrates.cloudno.de/player/#56e76b23ff1f31f73488ece5" width="650" height="360" allowfullscreen></iframe>
+	<iframe src="https://socrates.cloudno.de/player/#56e76b23ff1f31f73488ece5" width="650" height="360" allowfullscreen></iframe>
 
 </div>
 
@@ -54,17 +54,17 @@
 	<h2>Usage:</h2>
 	<h3>Step 1: </h3>
 	Embedding Capira via iFrame and activating the capira-API by adding the parameter <b>iframeapi</b>
-	<pre>
-		<iframe src="http://socrates.cloudno.de/player/#56e76b23ff1f31f73488ece5" width="650" height="360" allowfullscreen></iframe>
-	</pre>
+	<code>
+		<iframe src="https://socrates.cloudno.de/player/#56e76b23ff1f31f73488ece5" width="650" height="360" allowfullscreen></iframe>
+	</code>
 	<h3>Step 2:</h3>
 	Add the capira-api.js
-	<pre>
+	<code>
 		<script src="https://<your-server>/api/capira-api.min.js"></script>
-	</pre>
+	</code>
 	<h3>Step 3:</h3>
 	Register your custom EventHandlers like this:
-	<pre>
+	<code>
 		<script>
 			capiraAPI.onQuizSuccess(function(unit,layer,time,score){
 				// do sth with the received data
@@ -83,7 +83,7 @@
 				console.log('Received onUnitFinished: ', unit);
 			});
 		</script>
-	</pre>
+	</code>
 </div>
 
 
