@@ -25,7 +25,7 @@ module.exports = function(passport) {
         this._createProvider(null, function(a, provider) {
             // console.log(lti);
             var resource = {
-                lessonId:lti.custom_id,
+                lessonId: (lti.custom_id && lti.custom_id !== '') ? lti.custom_id : undefined,
                 resourceId: lti.resource_link_id,
                 contextId: lti.context_id,
                 instanceId: lti.tool_consumer_instance_guid,
