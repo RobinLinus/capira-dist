@@ -23,9 +23,11 @@ module.exports = function(passport) {
 
     return new LTIStrategy(config, function(lti, done) {
         this._createProvider(null, function(a, provider) {
-            // console.log(lti);
+            var lessonId =  (lti.custom_id && lti.custom_id !== '') ? lti.custom_id : null;
+            console.log(lessonId);
+            lti.custom_id=null;
             var resource = {
-                lessonId: (lti.custom_id && lti.custom_id !== '') ? lti.custom_id : undefined,
+                lessonId:lessonId,
                 resourceId: lti.resource_link_id,
                 contextId: lti.context_id,
                 instanceId: lti.tool_consumer_instance_guid,
