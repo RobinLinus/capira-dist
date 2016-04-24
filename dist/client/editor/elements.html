@@ -25657,7 +25657,7 @@ Capira.OverlayScaling = {
                 height: 16px;*/
             }
         }
-        </style><style include="overlay-scaling-style"></style><div id="scaler"><paper-material id="quiz" elevation="3"><quiz-question-card id="questionFeedback" question="{{question}}" combination="{{combination}}"></quiz-question-card><content></content></paper-material></div></template></dom-module><script>
+        </style><style include="overlay-scaling-style"></style><div id="scaler"><div id="animationContainer"><paper-material id="quiz" elevation="3"><quiz-question-card id="questionFeedback" question="{{question}}" combination="{{combination}}"></quiz-question-card><content></content></paper-material></div></div></template></dom-module><script>
 'use strict';
 (function() {
     Polymer({
@@ -25680,12 +25680,12 @@ Capira.OverlayScaling = {
                     return {
                         'incorrect-answer': {
                             name: 'was-incorrect-animation',
-                            node: this.$.quiz,
+                            node: this.$.animationContainer,
                             duration: 900
                         },
                         'correct-answer': {
                             name: 'was-correct-animation',
-                            node: this.$.quiz,
+                            node: this.$.animationContainer,
                             duration: 900
                         }
                     };
