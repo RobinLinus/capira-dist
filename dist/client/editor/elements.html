@@ -15577,15 +15577,25 @@ Capira.OverlayImpl = {
     _removeSkipButton: function() {
         if (this.skipButton && this.skipButton.isAttached) {
             //add to quiz-card if exists 
-            Polymer.dom(this.root).removeChild(this.skipButton);
-            this.$$('#card').removeChild(this.skipButton);
+            var card = this.$$('quiz-card');
+            if (card) {
+                card.removeChild(this.skipButton);
+            } else {
+                Polymer.dom(this.root).removeChild(this.skipButton);
+            }
+
         }
     },
 
     _showSkipButton: function() {
         if (this.skipButton && !this.skipButton.isAttached) {
-            Polymer.dom(this.root).appendChild(this.skipButton);
-            this.$$('#card').appendChild(this.skipButton);
+            var card = this.$$('quiz-card');
+            if (card) {
+                card.appendChild(this.skipButton);
+            } else {
+                Polymer.dom(this.root).appendChild(this.skipButton);
+            }
+
 
         }
     },
@@ -25619,6 +25629,7 @@ Capira.OverlayScaling = {
             #quiz {
                 transform-origin: center top;
                 transform: scale(0.80);
+                -webkit-transform: scale(0.80);
                 /*margin: 0 !important;*/
             }
             :host {
@@ -25636,11 +25647,13 @@ Capira.OverlayScaling = {
             }
             #quiz {
                 width: 100%;
-                min-height: 100%;
+                min-height: 200vh;
                 height: auto;
                 margin: 0;
                 transform: scale(1) !important;
+                -webkit-transform: scale(1) !important;
                 transform-origin: 0 0 !important;
+                -webkit-transform-origin: 0 0 !important;
             }
             :host {
                 padding: 0px !important;
