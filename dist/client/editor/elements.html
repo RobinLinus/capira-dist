@@ -23213,7 +23213,7 @@ Polymer({
         }.bind(this), false);
     },
     _timestampChanged: function(timestamp) {
-        if (app.player) {
+        if (window.app && app.player) {
             app.player.seekWithoutTrigger(timestamp);
         }
     }
@@ -25819,7 +25819,7 @@ Capira.OverlayScaling = {
         }
     });
 })();
-</script><dom-module id="done-button" assetpath="../../../editor/top-bars/"><template><div style="display:inline-block"><paper-icon-button on-tap="_done" icon="editor-icons:done"></paper-icon-button><paper-tooltip>Save and back.</paper-tooltip></div></template></dom-module><script>
+</script><dom-module id="done-button" assetpath="../../../editor/top-bars/"><template><div style="display:inline-block"><paper-icon-button on-tap="_done" icon="editor-icons:done"></paper-icon-button><paper-tooltip>Back to Overlay Mode.</paper-tooltip></div></template></dom-module><script>
 'use strict';
 (function() {
     Polymer({
