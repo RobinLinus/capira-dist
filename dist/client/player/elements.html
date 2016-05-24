@@ -12531,7 +12531,7 @@ Capira.OverlayImpl = {
 
     _showSkipButton: function() {
         if (this.skipButton && !this.skipButton.isAttached) {
-            var card = this.$$('quiz-card');
+            var card = Polymer.dom(this.root).querySelector('quiz-card');
             if (card) {
                 card.appendChild(this.skipButton);
             } else {
