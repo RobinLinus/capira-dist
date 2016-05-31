@@ -4,12 +4,12 @@ var atob = require('atob');
 module.exports = function(app) {
     app.disable('etag');
     app.get('/progress/:id/:score', function(req, res, next) {
-        app.lti._createProvider(null, function(err1, provider) {
-            if (err1) {
+        app.lti._createProvider(null, function(err, provider) {
+            if (err) {
                 return res.send('error1');
             }
-            provider.valid_request(req, function(err, is_valid) {
-                // if (err) {
+            provider.valid_request(req, function(err1, is_valid) {
+                // if (err1) {
                 //     console.log(err);
                 //     return res.send('error2');
                 // }
@@ -24,7 +24,7 @@ module.exports = function(app) {
                     source_did: id,
                     result_data_types: [],
                 };
-                // console.log(outcomeConfig); 
+                 console.log(outcomeConfig); 
                 var outcome = new lti.OutcomeService(outcomeConfig);
 
                 //console.log(outcomeConfig)
