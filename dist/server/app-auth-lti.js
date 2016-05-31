@@ -35,7 +35,7 @@ module.exports = function(passport) {
             };
 
             if (lti.lis_result_sourcedid) {
-                lti.lis_result_sourcedid.userid = user.id;
+                lti.lis_result_sourcedid.userid = lti.user_id;
             }
             var _sdid = lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : '';
             console.log(lti.lis_result_sourcedid)
