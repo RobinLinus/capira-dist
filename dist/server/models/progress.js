@@ -43,12 +43,12 @@ module.exports = function(app) {
                 //     }
                 //     console.log('Debug Score:', result, score);
                 //     if (!result || result < score) {
-                //         outcome.send_replace_result(score, function(err, result) {
+                //         outcome.send_replace_result(score, function(err, result1) {
                 //             if (err) {
                 //                 res.send('error1');
                 //                 return console.log('writeError', err);
                 //             }
-                //             res.send('grade', result)
+                //             res.send('grade', result1)
                 //         });
                 //     } else {
                 //         res.send('up to date');
