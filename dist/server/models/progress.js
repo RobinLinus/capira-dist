@@ -17,7 +17,9 @@ module.exports = function(app) {
                 var id = atob(req.params.id);
                 var score = Number(atob(req.params.score));
 
-                id.userid = provider.body.user_id;
+                id = JSON.parse(id);
+                id.data.userid = provider.body.user_id;
+                id = JSON.stringify(id);
 
                 var outcomeConfig = {
                     consumer_key: config.lti.consumerKey,
