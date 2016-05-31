@@ -16,7 +16,8 @@ module.exports = function(app) {
 
                 var id = atob(req.params.id);
                 var score = Number(atob(req.params.score));
-                //console.log(id, score);
+                console.log('id,store: ', id, score);
+                console.log(provider.body);
                 var outcomeConfig = {
                     consumer_key: config.lti.consumerKey,
                     consumer_secret: config.lti.consumerSecret,
@@ -32,14 +33,14 @@ module.exports = function(app) {
                         console.log('readError', err2);
                         return res.send('error');
                     }
-                    console.log('Debug Score:',result,score);
+                    console.log('Debug Score:', result, score);
                     if (!result || result < score) {
                         outcome.send_replace_result(score, function(err3, result1) {
                             if (err3) {
                                 res.send('error1');
                                 return console.log('writeError', err3);
                             }
-                            res.send('grade: '+ result1)
+                            res.send('grade: ' + result1)
                         });
                     } else {
                         res.send('up to date');
