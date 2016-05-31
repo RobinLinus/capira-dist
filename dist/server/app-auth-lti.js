@@ -23,17 +23,20 @@ module.exports = function(passport) {
 
     return new LTIStrategy(config, function(lti, done) {
         this._createProvider(null, function(a, provider) {
-            var lessonId =  (lti.custom_id && lti.custom_id !== '') ? lti.custom_id : null;
+            var lessonId = (lti.custom_id && lti.custom_id !== '') ? lti.custom_id : null;
             console.log(lessonId);
-            lti.custom_id=null;
+            lti.custom_id = null;
             var resource = {
-                lessonId:lessonId,
+                lessonId: lessonId,
                 resourceId: lti.resource_link_id,
                 contextId: lti.context_id,
                 instanceId: lti.tool_consumer_instance_guid,
                 title: lti.resource_link_title,
             };
 
+            if (lti.lis_result_sourcedid) {
+                lti.lis_result_sourcedid.userid = user.id;
+            }
             var _sdid = lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : '';
             console.log(lti.lis_result_sourcedid)
 
