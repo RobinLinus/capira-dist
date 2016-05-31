@@ -30,8 +30,8 @@ module.exports = function(app) {
                 //console.log(outcomeConfig)
                 outcome.send_read_result(function(err2, result) {
                     if (err2) {
-                        console.log('readError', err);
-                        res.send('error');
+                        console.log('readError', err2);
+                        return res.send('error');
                     }
                     console.log('Debug Score:',result,score);
                     if (!result || result < score) {
@@ -40,7 +40,7 @@ module.exports = function(app) {
                                 res.send('error1');
                                 return console.log('writeError', err);
                             }
-                            res.send('grade', result)
+                            res.send('grade: '+ result)
                         });
                     } else {
                         res.send('up to date');
