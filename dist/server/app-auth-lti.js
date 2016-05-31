@@ -2,7 +2,6 @@
 var LTIStrategy = require('passport-lti');
 var config = require('./config').lti;
 var btoa = require('btoa');
-var atob = require('atob');
 
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
@@ -35,13 +34,8 @@ module.exports = function(passport) {
                 title: lti.resource_link_title,
             };
 
-
             var _sdid = lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : '';
-            _sdid = atob(_sdid);
-            _sdid.userid=lti.user_id;
-            _sdid = btoa(_sdid);
-
-            console.log(lti.lis_result_sourcedid)
+            // console.log(lti.lis_result_sourcedid)
 
             var user = {
                 id: lti.user_id,
