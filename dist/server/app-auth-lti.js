@@ -35,6 +35,7 @@ module.exports = function(passport) {
             };
 
             var _sdid = lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : '';
+            console.log(lti.lis_result_sourcedid)
 
             var user = {
                 id: lti.user_id,

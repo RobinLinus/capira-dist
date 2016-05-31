@@ -24,7 +24,7 @@ module.exports = function(app) {
                     source_did: id,
                     result_data_types: [],
                 };
-                 console.log(outcomeConfig); 
+                 // console.log(outcomeConfig); 
                 var outcome = new lti.OutcomeService(outcomeConfig);
 
                 //console.log(outcomeConfig)
