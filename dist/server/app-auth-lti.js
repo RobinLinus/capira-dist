@@ -2,6 +2,7 @@
 var LTIStrategy = require('passport-lti');
 var config = require('./config').lti;
 var btoa = require('btoa');
+var atob = require('atob');
 
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
