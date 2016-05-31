@@ -16,8 +16,9 @@ module.exports = function(app) {
 
                 var id = atob(req.params.id);
                 var score = Number(atob(req.params.score));
-                console.log('id,store: ', id, score);
-                console.log(provider.body);
+
+                id.data.userid = provider.body.user_id
+
                 var outcomeConfig = {
                     consumer_key: config.lti.consumerKey,
                     consumer_secret: config.lti.consumerSecret,
