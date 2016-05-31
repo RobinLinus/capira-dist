@@ -9,10 +9,10 @@ module.exports = function(app) {
                 return res.send('error1');
             }
             provider.valid_request(req, function(err, is_valid) {
-                if (err) {
-                    console.log(err);
-                    return res.send('error2');
-                }
+                // if (err) {
+                //     console.log(err);
+                //     return res.send('error2');
+                // }
 
                 var id = atob(req.params.id);
                 var score = Number(atob(req.params.score));
