@@ -26,25 +26,34 @@ module.exports = function(app) {
                 // console.log(outcomeConfig); 
                 var outcome = new lti.OutcomeService(outcomeConfig);
 
-                console.log(outcomeConfig)
-                outcome.send_read_result(function(err, result) {
+
+                outcome.send_replace_result(score, function(err, result) {
                     if (err) {
-                        console.log('readError', err);
-                        res.send('error');
+                        res.send('error1');
+                        return console.log('writeError', err);
                     }
-                    console.log('Debug Score:',result,score);
-                    if (!result || result < score) {
-                        outcome.send_replace_result(score, function(err, result) {
-                            if (err) {
-                                res.send('error1');
-                                return console.log('writeError', err);
-                            }
-                            res.send('grade', result)
-                        });
-                    } else {
-                        res.send('up to date');
-                    }
+                    res.send('grade', result)
                 });
+
+                //console.log(outcomeConfig)
+                // outcome.send_read_result(function(err, result) {
+                //     if (err) {
+                //         console.log('readError', err);
+                //         res.send('error');
+                //     }
+                //     console.log('Debug Score:', result, score);
+                //     if (!result || result < score) {
+                //         outcome.send_replace_result(score, function(err, result) {
+                //             if (err) {
+                //                 res.send('error1');
+                //                 return console.log('writeError', err);
+                //             }
+                //             res.send('grade', result)
+                //         });
+                //     } else {
+                //         res.send('up to date');
+                //     }
+                // });
             });
         });
     });
