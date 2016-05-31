@@ -24,7 +24,7 @@ module.exports = function(app) {
                     source_did: id,
                     result_data_types: [],
                 };
-                // console.log(outcomeConfig); 
+                 // console.log(outcomeConfig); 
                 var outcome = new lti.OutcomeService(outcomeConfig);
 
                 //console.log(outcomeConfig)
@@ -33,25 +33,18 @@ module.exports = function(app) {
                         console.log('readError', err2);
                         return res.send('error');
                     }
-                    console.log('Debug Score:', result, score);
-                    outcome.send_replace_result(score, function(err3, result1) {
-                        if (err3) {
-                            res.send('error1');
-                            return console.log('writeError', err3);
-                        }
-                        res.send('grade: ' + result1)
-                    });
-                    // if (!result || result < score) {
-                    //     outcome.send_replace_result(score, function(err3, result1) {
-                    //         if (err3) {
-                    //             res.send('error1');
-                    //             return console.log('writeError', err3);
-                    //         }
-                    //         res.send('grade: '+ result1)
-                    //     });
-                    // } else {
-                    //     res.send('up to date');
-                    // }
+                    console.log('Debug Score:',result,score);
+                    if (!result || result < score) {
+                        outcome.send_replace_result(score, function(err3, result1) {
+                            if (err3) {
+                                res.send('error1');
+                                return console.log('writeError', err3);
+                            }
+                            res.send('grade: '+ result1)
+                        });
+                    } else {
+                        res.send('up to date');
+                    }
                 });
             });
         });
