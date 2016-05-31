@@ -35,12 +35,12 @@ module.exports = function(app) {
                     }
                     console.log('Debug Score:',result,score);
                     if (!result || result < score) {
-                        outcome.send_replace_result(score, function(err, result) {
-                            if (err) {
+                        outcome.send_replace_result(score, function(err3, result1) {
+                            if (err3) {
                                 res.send('error1');
-                                return console.log('writeError', err);
+                                return console.log('writeError', err3);
                             }
-                            res.send('grade: '+ result)
+                            res.send('grade: '+ result1)
                         });
                     } else {
                         res.send('up to date');
