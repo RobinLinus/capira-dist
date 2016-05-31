@@ -34,11 +34,13 @@ module.exports = function(passport) {
                 title: lti.resource_link_title,
             };
 
-            if (lti.lis_result_sourcedid) {
-                lti.lis_result_sourcedid.userid = lti.user_id;
+
+            var _sdid = JSON.parse(JSON.stringify(lti.lis_result_sourcedid));
+            if (_sdid) {
+                _sdid.userid = lti.user_id;
             }
-            var _sdid = lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : '';
-            console.log(lti.lis_result_sourcedid)
+            _sdid = _sdid ? btoa(_sdid) : '';
+            console.log(_sdid)
 
             var user = {
                 id: lti.user_id,
