@@ -9,9 +9,10 @@ module.exports = function(app) {
                 return res.send('error1');
             }
             provider.valid_request(req, function(err, is_valid) {
-                // if (err) {
-                //     return res.send('error2');
-                // }
+                if (err) {
+                    console.log(err);
+                    return res.send('error2');
+                }
 
                 var id = atob(req.params.id);
                 var score = Number(atob(req.params.score));
@@ -26,34 +27,25 @@ module.exports = function(app) {
                 // console.log(outcomeConfig); 
                 var outcome = new lti.OutcomeService(outcomeConfig);
 
-
-                outcome.send_replace_result(score, function(err, result) {
-                    if (err) {
-                        res.send('error1');
-                        return console.log('writeError', err);
-                    }
-                    res.send('grade', result)
-                });
-
                 //console.log(outcomeConfig)
-                // outcome.send_read_result(function(err, result) {
-                //     if (err) {
-                //         console.log('readError', err);
-                //         res.send('error');
-                //     }
-                //     console.log('Debug Score:', result, score);
-                //     if (!result || result < score) {
-                //         outcome.send_replace_result(score, function(err, result1) {
-                //             if (err) {
-                //                 res.send('error1');
-                //                 return console.log('writeError', err);
-                //             }
-                //             res.send('grade', result1)
-                //         });
-                //     } else {
-                //         res.send('up to date');
-                //     }
-                // });
+                outcome.send_read_result(function(err, result) {
+                    if (err) {
+                        console.log('readError', err);
+                        res.send('error');
+                    }
+                    console.log('Debug Score:',result,score);
+                    if (!result || result < score) {
+                        outcome.send_replace_result(score, function(err, result) {
+                            if (err) {
+                                res.send('error1');
+                                return console.log('writeError', err);
+                            }
+                            res.send('grade', result)
+                        });
+                    } else {
+                        res.send('up to date');
+                    }
+                });
             });
         });
     });
