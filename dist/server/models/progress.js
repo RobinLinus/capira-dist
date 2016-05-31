@@ -32,6 +32,7 @@ module.exports = function(app) {
                         console.log('readError', err);
                         res.send('error');
                     }
+                    console.log('Debug Score:',result,score);
                     if (!result || result < score) {
                         outcome.send_replace_result(score, function(err, result) {
                             if (err) {
