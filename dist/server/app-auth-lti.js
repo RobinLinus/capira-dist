@@ -38,7 +38,7 @@ module.exports = function(passport) {
             var _sdid = lti.lis_result_sourcedid ? btoa(lti.lis_result_sourcedid) : '';
             // console.log(lti.lis_result_sourcedid)
             _sdid = atob(_sdid);
-            _sdid.data.userid = lti.user_id;
+            _sdid.userid = lti.user_id;
             _sdid = btoa(_sdid);
 
             var user = {
