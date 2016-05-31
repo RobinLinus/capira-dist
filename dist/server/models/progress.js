@@ -24,10 +24,9 @@ module.exports = function(app) {
                     source_did: id,
                     result_data_types: [],
                 };
-                 // console.log(outcomeConfig); 
                 var outcome = new lti.OutcomeService(outcomeConfig);
 
-                //console.log(outcomeConfig)
+                console.log(outcomeConfig)
                 outcome.send_read_result(function(err2, result) {
                     if (err2) {
                         console.log('readError', err2);
