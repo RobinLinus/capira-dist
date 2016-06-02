@@ -29,8 +29,8 @@ app.enable('trust proxy');
 
 app.use(compression());
 
-app.use(express.static(config.webRoot, { maxAge: twoDays }));
 app.use(cookieParser());
+app.use(express.static(config.webRoot, { maxAge: twoDays }));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
