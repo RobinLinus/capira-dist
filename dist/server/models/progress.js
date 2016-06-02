@@ -25,7 +25,7 @@ module.exports = function(app) {
             outcome.send_read_result(function(err2, result) {
                 if (err2) {
                     console.log('readError', err2);
-                    return res.send('error');
+                    //return res.send('error');
                 }
                 console.log('Debug Score:', result, score);
                 if (!result || result < score) {
