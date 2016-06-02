@@ -28,7 +28,7 @@ module.exports = function(app) {
                     //return res.send('error');
                 }
                 console.log('Debug Score:', result, score);
-                if (!result || result < score) {
+                if (err2 || result < score) {
                     outcome.send_replace_result(score, function(err3, result1) {
                         if (err3) {
                             res.send('error1');
